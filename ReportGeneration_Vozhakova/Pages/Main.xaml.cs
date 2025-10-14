@@ -1,4 +1,5 @@
 ﻿using ReportGeneration_Vozhakova.Classes;
+using ReportGeneration_Vozhakova.Classes.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,6 +68,15 @@ namespace ReportGeneration_Vozhakova.Pages
                 SearchStudent = AllStudents.FindAll(x => x.IdGroup == IdGroup);
             }
             CreateStudents(SearchStudent.FindAll(x => $"{x.Lastname} {x.Firstname}".Contains(TBFIO.Text)));
+        }
+
+        private void ReportGeneration(object sender, RoutedEventArgs e)
+        {
+            if (CBGroups.SelectedIndex != CBGroups.Items.Count - 1) 
+            {
+                int IdGroup = AllGroups.Find(x => x.Name == CBGroups.SelectedItem).Id;
+                Report.Group(IdGroup,this);
+            }
         }
     }
 }
